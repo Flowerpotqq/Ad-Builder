@@ -10,10 +10,10 @@ export default function HomePage() {
       <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-10 lg:px-8">
         <header className="mb-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-md bg-gradient-to-br from-nap-blue to-nap-cyan">
-              <Sparkles className="h-5 w-5 text-nap-navy" />
+            <div className="flex h-10 w-10 items-center justify-center rounded-md border border-border bg-secondary">
+              <Sparkles className="h-5 w-5 text-primary" />
             </div>
-            <div className="text-brand-ink">
+            <div className="text-foreground">
               <p className="text-base font-semibold tracking-tight">NAP Email Platform</p>
               <p className="text-xs text-muted-foreground">Built by NAP Solutions</p>
             </div>
@@ -25,7 +25,7 @@ export default function HomePage() {
 
         <section className="grid items-start gap-8 lg:grid-cols-[1.2fr_1fr]">
           <div className="space-y-6">
-            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-brand-ink md:text-5xl text-balance">
+            <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl text-balance">
               Design, write, and send on-brand campaigns from one focused workspace.
             </h1>
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
@@ -45,7 +45,7 @@ export default function HomePage() {
 
           <Card className="nap-panel">
             <CardContent className="p-5">
-              <p className="mb-4 text-sm font-semibold text-brand-ink">Core capabilities</p>
+              <p className="mb-4 text-sm font-semibold text-foreground">Core capabilities</p>
               <div className="space-y-3">
                 {[
                   { icon: Sparkles, title: "AI Generation", desc: "Claude-assisted briefs and email drafts." },
@@ -55,7 +55,7 @@ export default function HomePage() {
                 ].map((feature) => (
                   <div key={feature.title} className="rounded-md border border-border bg-secondary/35 p-3">
                     <div className="mb-1 flex items-center gap-2">
-                      <feature.icon className="h-4 w-4 text-brand-ink" />
+                      <feature.icon className="h-4 w-4 text-primary" />
                       <p className="text-sm font-semibold text-foreground">{feature.title}</p>
                     </div>
                     <p className="text-sm text-muted-foreground">{feature.desc}</p>

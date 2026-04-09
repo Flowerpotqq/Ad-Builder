@@ -134,19 +134,19 @@ export default function CampaignReportPage() {
                 <tbody>
                   {events.map((event) => (
                     <tr key={event.id as string} className="border-b last:border-0">
-                      <td className="py-2">{(event.contact as Record<string, string>)?.email || "—"}</td>
+                      <td className="py-2">{(event.contact as Record<string, string>)?.email || "-"}</td>
                       <td className="py-2">
-                        <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                          event.type === "OPENED" ? "bg-[#eaf4ff] text-[#2b4f7d]" :
-                          event.type === "CLICKED" ? "bg-[#e8f7f1] text-[#1f6550]" :
-                          event.type === "BOUNCED" ? "bg-[#fff0f2] text-[#9f2f43]" :
-                          event.type === "SENT" ? "bg-muted text-foreground/80" :
-                          "bg-[#fff5dc] text-[#785c1d]"
+                        <span className={`inline-flex rounded-md border px-2 py-0.5 text-xs font-medium ${
+                          event.type === "OPENED" ? "border-[#1f6feb]/45 bg-[#1f6feb]/18 text-[#79c0ff]" :
+                          event.type === "CLICKED" ? "border-[#238636]/45 bg-[#238636]/16 text-[#3fb950]" :
+                          event.type === "BOUNCED" ? "border-[#da3633]/45 bg-[#da3633]/16 text-[#ff7b72]" :
+                          event.type === "SENT" ? "border-border bg-secondary text-foreground/85" :
+                          "border-[#9e6a03]/45 bg-[#9e6a03]/18 text-[#d29922]"
                         }`}>
                           {event.type as string}
                         </span>
                       </td>
-                      <td className="py-2 text-muted-foreground">{(event.metadata as string) || "—"}</td>
+                      <td className="py-2 text-muted-foreground">{(event.metadata as string) || "-"}</td>
                       <td className="py-2 text-muted-foreground">
                         {new Date(event.timestamp as string).toLocaleString()}
                       </td>
@@ -163,3 +163,4 @@ export default function CampaignReportPage() {
     </div>
   );
 }
+

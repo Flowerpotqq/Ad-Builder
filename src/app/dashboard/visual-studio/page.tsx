@@ -289,11 +289,11 @@ export default function VisualStudioPage() {
                 {checklist.map((item, i) => (
                   <div key={i} className="flex items-center gap-2 text-sm">
                     {item.pass ? (
-                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <CheckCircle className="h-4 w-4 text-[#3fb950]" />
                     ) : (
-                      <XCircle className="h-4 w-4 text-red-500" />
+                      <XCircle className="h-4 w-4 text-[#ff7b72]" />
                     )}
-                    <span className={item.pass ? "text-foreground/80" : "text-red-600"}>{item.label}</span>
+                    <span className={item.pass ? "text-foreground/80" : "text-destructive"}>{item.label}</span>
                   </div>
                 ))}
               </CardContent>

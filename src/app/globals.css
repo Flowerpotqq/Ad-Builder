@@ -4,30 +4,33 @@
 
 @layer base {
   :root {
-    --background: 214 100% 98%;
-    --foreground: 226 41% 16%;
-    --card: 0 0% 100%;
-    --card-foreground: 226 41% 16%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 226 41% 16%;
-    --primary: 225 46% 22%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 214 86% 94%;
-    --secondary-foreground: 226 41% 16%;
-    --muted: 213 61% 95%;
-    --muted-foreground: 223 18% 41%;
-    --accent: 200 100% 87%;
-    --accent-foreground: 226 41% 16%;
-    --destructive: 0 84.2% 60.2%;
+    --background: 216 28% 7%;
+    --foreground: 210 17% 82%;
+    --card: 214 23% 11%;
+    --card-foreground: 210 17% 82%;
+    --popover: 214 23% 11%;
+    --popover-foreground: 210 17% 82%;
+    --primary: 212 91% 57%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 215 16% 15%;
+    --secondary-foreground: 210 17% 82%;
+    --muted: 215 16% 15%;
+    --muted-foreground: 215 9% 59%;
+    --accent: 212 91% 57%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 3 93% 63%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 55% 88%;
-    --input: 215 55% 88%;
-    --ring: 218 84% 69%;
-    --radius: 0.625rem;
-    --nap-ink: #0a0f1e;
-    --nap-ink-soft: #1a2240;
-    --nap-blue: #a8c5fd;
-    --nap-cyan: #99e4ff;
+    --border: 215 13% 21%;
+    --input: 215 13% 21%;
+    --ring: 212 91% 57%;
+    --radius: 0.5rem;
+    --nap-ink: #0d1117;
+    --nap-ink-soft: #161b22;
+    --nap-mid: #30363d;
+    --nap-light: #c9d1d9;
+    --nap-muted: #8b949e;
+    --nap-blue: #2f81f7;
+    --nap-cyan: #58a6ff;
   }
 }
 
@@ -38,11 +41,9 @@
 
   body {
     @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(1000px 520px at 8% -10%, rgba(168, 197, 253, 0.3), transparent),
-      radial-gradient(900px 500px at 94% -20%, rgba(153, 228, 255, 0.32), transparent),
-      linear-gradient(180deg, #f9fcff 0%, #f0f6ff 100%);
+    background-color: hsl(var(--background));
     min-height: 100vh;
+    color-scheme: dark;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
   }
@@ -52,12 +53,12 @@
   }
 
   ::selection {
-    background: rgba(153, 228, 255, 0.48);
-    color: var(--nap-ink);
+    background: rgba(47, 129, 247, 0.45);
+    color: #f0f6fc;
   }
 
   :focus-visible {
-    outline: 2px solid rgba(168, 197, 253, 0.9);
+    outline: 2px solid rgba(47, 129, 247, 0.9);
     outline-offset: 2px;
   }
 }
@@ -68,7 +69,7 @@
   }
 
   .nap-panel {
-    @apply rounded-lg border border-border bg-card shadow-[0_8px_20px_rgba(15,30,65,0.08)];
+    @apply rounded-md border border-border bg-card shadow-[0_1px_0_rgba(240,246,252,0.04),0_8px_24px_rgba(1,4,9,0.42)];
   }
 
   .nap-subtitle {
@@ -82,23 +83,23 @@
   }
 
   .bg-page-soft {
-    background: linear-gradient(180deg, #f9fcff 0%, #f1f6ff 100%);
+    background-color: hsl(var(--background));
   }
 
   .border-brand {
-    border-color: rgba(168, 197, 253, 0.72);
+    border-color: rgba(47, 129, 247, 0.72);
   }
 
   .bg-brand-soft {
-    background-color: rgba(168, 197, 253, 0.2);
+    background-color: rgba(47, 129, 247, 0.16);
   }
 
   .bg-accent-soft {
-    background-color: rgba(153, 228, 255, 0.28);
+    background-color: rgba(88, 166, 255, 0.2);
   }
 
   .text-brand-ink {
-    color: var(--nap-ink-soft);
+    color: var(--nap-light);
   }
 
   .scrollbar-subtle::-webkit-scrollbar {
@@ -107,11 +108,11 @@
   }
 
   .scrollbar-subtle::-webkit-scrollbar-thumb {
-    background: rgba(168, 197, 253, 0.55);
+    background: rgba(139, 148, 158, 0.65);
     border-radius: 999px;
   }
 
   .scrollbar-subtle::-webkit-scrollbar-track {
-    background: rgba(168, 197, 253, 0.16);
+    background: rgba(33, 38, 45, 0.72);
   }
 }

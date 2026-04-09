@@ -218,7 +218,7 @@ export default function ContactsPage() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-7 w-7 text-muted-foreground hover:text-red-600"
+                  className="h-7 w-7 text-muted-foreground hover:text-destructive"
                   onClick={(e) => { e.stopPropagation(); handleDeleteList(list.id); }}
                 >
                   <Trash2 className="h-3 w-3" />

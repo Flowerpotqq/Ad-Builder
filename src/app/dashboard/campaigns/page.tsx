@@ -209,7 +209,7 @@ export default function CampaignsPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="text-red-600 hover:text-red-700"
+                    className="text-destructive hover:bg-destructive/10 hover:text-destructive"
                     onClick={() => handleDelete(campaign.id as string)}
                   >
                     <Trash2 className="h-3 w-3" />
