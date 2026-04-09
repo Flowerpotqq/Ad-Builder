@@ -1,0 +1,264 @@
+// ============================================================================
+// NAP Solutions AI Email Platform — Prisma Schema
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// --- Authentication & Users ---
+
+model User {
+  id             String         @id @default(cuid())
+  name           String?
+  email          String         @unique
+  emailVerified  DateTime?
+  hashedPassword String
+  image          String?
+  role           UserRole       @default(USER)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  campaigns      Campaign[]
+  templates      Template[]
+  contactLists   ContactList[]
+  brandProfile   BrandProfile?
+  visualAds      VisualAd[]
+
+  @@index([email])
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+// --- Brand Profile ---
+
+model BrandProfile {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  primaryColor    String   @default("#0e0e2c")
+  secondaryColor  String   @default("#1a1a4e")
+  accentColor     String   @default("#b8dff0")
+  backgroundColor String   @default("#ffffff")
+  textColor       String   @default("#333333")
+
+  fontFamily      String   @default("Arial, Helvetica, sans-serif")
+  fontSizeBase    Int      @default(16)
+
+  logoUrl         String?
+  siteUrl         String   @default("https://getnapsolutions.com")
+
+  brandVoice      BrandVoice @default(SALES_FOCUSED)
+  ctaStyle        String   @default("Dark navy background, white bold text, 8px border radius")
+  customNotes     String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum BrandVoice {
+  PROFESSIONAL
+  CASUAL
+  SALES_FOCUSED
+  TECHNICAL
+}
+
+// --- Campaigns ---
+
+model Campaign {
+  id            String         @id @default(cuid())
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name          String
+  type          CampaignType   @default(PROMOTIONAL)
+  status        CampaignStatus @default(DRAFT)
+
+  subject       String?
+  subjectB      String?        // A/B variant
+  previewText   String?
+  htmlContent   String?        @db.Text
+  fromName      String?
+  fromEmail     String?
+
+  contactListId String?
+  contactList   ContactList?   @relation(fields: [contactListId], references: [id])
+
+  scheduledAt   DateTime?
+  sentAt        DateTime?
+
+  totalSent     Int            @default(0)
+  totalOpened   Int            @default(0)
+  totalClicked  Int            @default(0)
+  totalBounced  Int            @default(0)
+
+  versions      CampaignVersion[]
+  emailEvents   EmailEvent[]
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([contactListId])
+}
+
+enum CampaignType {
+  PROMOTIONAL
+  NEWSLETTER
+  FOLLOW_UP
+  ANNOUNCEMENT
+}
+
+enum CampaignStatus {
+  DRAFT
+  SCHEDULED
+  SENDING
+  SENT
+  FAILED
+}
+
+// --- Campaign Version History ---
+
+model CampaignVersion {
+  id          String   @id @default(cuid())
+  campaignId  String
+  campaign    Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  htmlContent String   @db.Text
+  instruction String?  // What change was requested
+  version     Int
+  createdAt   DateTime @default(now())
+
+  @@index([campaignId])
+  @@index([version])
+}
+
+// --- Templates ---
+
+model Template {
+  id          String   @id @default(cuid())
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name        String
+  category    TemplateCategory
+  htmlContent String   @db.Text
+  isDefault   Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([category])
+}
+
+enum TemplateCategory {
+  PROMOTIONAL
+  NEWSLETTER
+  WELCOME
+  FOLLOW_UP
+  ANNOUNCEMENT
+}
+
+// --- Visual Ads (Phase 11) ---
+
+model VisualAd {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  platform     String   // facebook | tiktok
+  format       String   // square | story | carousel | vertical | spark
+  visualType   String   // stat | service | testimonial | promo | comparison | highlight
+  headline     String
+  subtext      String?
+  ctaText      String
+  htmlSnapshot String   @db.Text
+  pngUrl       String?
+  agentOutputs Json     // Stores raw agent JSON for re-editing
+  tags         String[] @default([])
+
+  createdAt    DateTime @default(now())
+
+  @@index([userId])
+  @@index([platform])
+  @@index([createdAt])
+}
+
+// --- Contacts ---
+
+model ContactList {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  name      String
+  contacts  Contact[]
+  campaigns Campaign[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([userId])
+}
+
+model Contact {
+  id        String      @id @default(cuid())
+  listId    String
+  list      ContactList @relation(fields: [listId], references: [id], onDelete: Cascade)
+
+  email     String
+  firstName String?
+  lastName  String?
+  tags      String[]    @default([])
+
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+
+  emailEvents EmailEvent[]
+
+  @@unique([listId, email])
+  @@index([listId])
+  @@index([email])
+}
+
+// --- Email Events (Tracking) ---
+
+model EmailEvent {
+  id         String        @id @default(cuid())
+  campaignId String
+  campaign   Campaign      @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  contactId  String
+  contact    Contact       @relation(fields: [contactId], references: [id], onDelete: Cascade)
+
+  type       EmailEventType
+  metadata   String?       // Click URL, bounce reason, etc.
+  timestamp  DateTime      @default(now())
+
+  @@index([campaignId])
+  @@index([contactId])
+  @@index([type])
+  @@index([timestamp])
+}
+
+enum EmailEventType {
+  SENT
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+}
