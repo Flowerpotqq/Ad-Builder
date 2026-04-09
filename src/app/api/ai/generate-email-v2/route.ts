@@ -12,6 +12,7 @@ const generateV2Schema = z.object({
   ctaText: z.string().min(1),
   additionalNotes: z.string().optional(),
   campaignType: z.string().optional().default("PROMOTIONAL"),
+  emailType: z.string().optional(),
 });
 
 /**
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
             additionalNotes: parsed.data.additionalNotes,
           },
           brandProfile,
-          parsed.data.campaignType,
+          parsed.data.emailType || parsed.data.campaignType,
           (stage, progress) => {
             const event = `data: ${JSON.stringify({ stage, progress })}\n\n`;
             controller.enqueue(encoder.encode(event));

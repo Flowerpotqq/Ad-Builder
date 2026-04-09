@@ -2,23 +2,25 @@ import type { GenerateEmailRequest, RefineEmailRequest } from "@/types";
 
 /**
  * Build the user prompt for email generation.
- * Combines the campaign brief with the serialized brand profile.
+ * Combines the campaign brief with the serialized brand profile and optional
+ * email-agent markdown context.
  */
 export function buildGenerationPrompt(
   brief: GenerateEmailRequest,
-  brandContext: string
+  brandContext: string,
+  emailAgentContext?: string
 ): string {
-  return `${brandContext}
+  return `${emailAgentContext ? `${emailAgentContext}\n\n` : ""}${brandContext}
 
 CAMPAIGN BRIEF:
-━━━━━━━━━━━━━━━━━━━━━━
+----------------------
 Goal: ${brief.goal}
 Target audience: ${brief.audience}
 Key message: ${brief.keyMessage}
 CTA text: ${brief.ctaText}
 ${brief.tone ? `Desired tone: ${brief.tone}` : ""}
 ${brief.additionalNotes ? `Additional notes: ${brief.additionalNotes}` : ""}
-━━━━━━━━━━━━━━━━━━━━━━
+----------------------
 
 Generate a complete, production-ready HTML email following all the rules in your system prompt. Apply the brand profile exactly as specified.`;
 }
@@ -47,9 +49,10 @@ Return the complete modified HTML email with the requested changes applied. Pres
  */
 export function buildSubjectLinePrompt(
   htmlContent: string,
-  brandContext: string
+  brandContext: string,
+  emailAgentContext?: string
 ): string {
-  return `${brandContext}
+  return `${emailAgentContext ? `${emailAgentContext}\n\n` : ""}${brandContext}
 
 Here is the email content:
 

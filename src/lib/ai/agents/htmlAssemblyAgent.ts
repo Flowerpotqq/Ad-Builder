@@ -6,11 +6,11 @@ import type { AgentResult, CopyAgentOutput, LayoutAgentOutput } from "@/types/ag
 const SYSTEM_PROMPT = `You are an email HTML assembler. You receive structured copy, a layout plan, and a brand profile. Your job is to assemble a complete, email-client-safe HTML email.
 
 CRITICAL RULES:
-1. Return ONLY the complete HTML document — starting with <!DOCTYPE html> and ending with </html>.
-2. Use ONLY inline CSS (style="...") — NO <style> blocks, NO external CSS.
+1. Return ONLY the complete HTML document - starting with <!DOCTYPE html> and ending with </html>.
+2. Use ONLY inline CSS (style="...") - NO <style> blocks, NO external CSS.
 3. Use table-based layout for Outlook compatibility.
 4. Maximum width: 600px, centered.
-5. DO NOT invent new copy — use EXACTLY the text from the copy JSON provided.
+5. DO NOT invent new copy - use EXACTLY the text from the copy JSON provided.
 6. Include the brand colors, fonts, and styles as specified.
 7. Include {{firstName}} merge tag in the greeting.
 8. Include {{unsubscribeUrl}} in the footer.
@@ -26,7 +26,7 @@ CTA BUTTON PATTERN:
   </tr>
 </table>`;
 
-/** Run the HTML Assembly Agent — assembles final email HTML from components */
+/** Run the HTML Assembly Agent and assemble final email HTML from components */
 export async function runHtmlAssemblyAgent(
   copy: CopyAgentOutput,
   layout: LayoutAgentOutput,
@@ -41,9 +41,10 @@ export async function runHtmlAssemblyAgent(
     logoUrl: string | null;
     siteUrl: string;
     ctaStyle: string;
-  }
+  },
+  emailAgentContext?: string
 ): Promise<AgentResult<string>> {
-  const userPrompt = `Assemble a complete HTML email using these components:
+  const userPrompt = `${emailAgentContext ? `EMAIL_AGENT_CONTEXT:\n${emailAgentContext}\n\n` : ""}Assemble a complete HTML email using these components:
 
 COPY:
 ${JSON.stringify(copy, null, 2)}

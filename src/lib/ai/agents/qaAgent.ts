@@ -5,8 +5,8 @@ import { qaAgentOutputSchema, type QaAgentOutput, type AgentResult } from "@/typ
 const SYSTEM_PROMPT = `You are an email quality assurance specialist. Review the provided HTML email and return a structured audit report.
 
 RULES:
-1. Return ONLY valid JSON — no markdown, no explanation.
-2. Be specific in your findings — cite exact elements or text.
+1. Return ONLY valid JSON - no markdown, no explanation.
+2. Be specific in your findings - cite exact elements or text.
 3. Score from 1-10 (10 = excellent).
 4. Spam triggers: check subject line hints in the copy, common trigger words.
 5. Mobile issues: check for fixed widths over 600px, small fonts, unclickable CTAs.
@@ -22,9 +22,12 @@ Output format:
   "overallScore": 8
 }`;
 
-/** Run the QA Agent — reviews assembled HTML and returns an audit report */
-export async function runQaAgent(html: string): Promise<AgentResult<QaAgentOutput>> {
-  const userPrompt = `Review this email HTML and return a quality audit report:
+/** Run the QA Agent and review assembled HTML */
+export async function runQaAgent(
+  html: string,
+  emailAgentContext?: string
+): Promise<AgentResult<QaAgentOutput>> {
+  const userPrompt = `${emailAgentContext ? `EMAIL_AGENT_CONTEXT:\n${emailAgentContext}\n\n` : ""}Review this email HTML and return a quality audit report:
 
 ${html}`;
 

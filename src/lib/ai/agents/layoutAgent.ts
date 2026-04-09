@@ -10,7 +10,7 @@ import {
 const SYSTEM_PROMPT = `You are an email layout architect. Select the optimal section order for an email based on campaign type and audience.
 
 RULES:
-1. Return ONLY valid JSON — no markdown, no explanation.
+1. Return ONLY valid JSON - no markdown, no explanation.
 2. Choose from these section types: header, hero, features-3col, features-2col, body-text, social-proof, testimonial, cta, divider, ps-section, footer
 3. Every email MUST include: header, hero or body-text, cta, footer
 4. Keep layouts between 4-7 sections total
@@ -22,12 +22,13 @@ Output format:
   "layoutNotes": "optional notes about the layout"
 }`;
 
-/** Run the Layout Agent — selects optimal email section structure */
+/** Run the Layout Agent and select optimal email section structure */
 export async function runLayoutAgent(
   brief: BriefAnalystOutput,
-  campaignType: string
+  campaignType: string,
+  emailAgentContext?: string
 ): Promise<AgentResult<LayoutAgentOutput>> {
-  const userPrompt = `Select the optimal email layout for:
+  const userPrompt = `${emailAgentContext ? `EMAIL_AGENT_CONTEXT:\n${emailAgentContext}\n\n` : ""}Select the optimal email layout for:
 
 Campaign type: ${campaignType}
 Tone: ${brief.tone}

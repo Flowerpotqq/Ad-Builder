@@ -5,6 +5,7 @@ import { callClaude } from "@/lib/ai/claude-client";
 import { SUBJECT_LINE_PROMPT } from "@/lib/ai/system-prompt";
 import { serializeBrandProfile } from "@/lib/ai/brand-serializer";
 import { buildSubjectLinePrompt } from "@/lib/ai/prompt-builder";
+import { buildEmailAgentContextBundle } from "@/lib/ai/email-agent-loader";
 import {
   getAuthenticatedSession,
   unauthorizedResponse,
@@ -46,7 +47,12 @@ export async function POST(req: Request) {
     }
 
     const brandContext = serializeBrandProfile(brandProfile);
-    const userPrompt = buildSubjectLinePrompt(parsed.data.htmlContent, brandContext);
+    const emailAgentBundle = await buildEmailAgentContextBundle({});
+    const userPrompt = buildSubjectLinePrompt(
+      parsed.data.htmlContent,
+      brandContext,
+      emailAgentBundle.subjectContext
+    );
     const response = await callClaude(SUBJECT_LINE_PROMPT, userPrompt, 1024);
 
     // Parse the JSON response

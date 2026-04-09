@@ -5,6 +5,7 @@ import { callClaude } from "@/lib/ai/claude-client";
 import { EMAIL_SYSTEM_PROMPT } from "@/lib/ai/system-prompt";
 import { serializeBrandProfile } from "@/lib/ai/brand-serializer";
 import { buildGenerationPrompt } from "@/lib/ai/prompt-builder";
+import { buildEmailAgentContextBundle } from "@/lib/ai/email-agent-loader";
 import {
   getAuthenticatedSession,
   unauthorizedResponse,
@@ -21,6 +22,8 @@ const generateSchema = z.object({
   ctaText: z.string().min(1, "CTA text is required"),
   tone: z.string().optional(),
   additionalNotes: z.string().optional(),
+  emailType: z.string().optional(),
+  campaignType: z.string().optional(),
 });
 
 /** POST /api/ai/generate-email — Generate a brand-consistent HTML email via Claude */
@@ -60,13 +63,25 @@ export async function POST(req: Request) {
 
     // Build prompt and call Claude
     const brandContext = serializeBrandProfile(brandProfile);
-    const userPrompt = buildGenerationPrompt(parsed.data, brandContext);
+    const emailAgentBundle = await buildEmailAgentContextBundle({
+      emailType: parsed.data.emailType,
+      campaignType: parsed.data.campaignType,
+      goal: parsed.data.goal,
+      keyMessage: parsed.data.keyMessage,
+      additionalNotes: parsed.data.additionalNotes,
+    });
+
+    const userPrompt = buildGenerationPrompt(
+      parsed.data,
+      brandContext,
+      emailAgentBundle.fullContext
+    );
 
     const htmlContent = await callClaude(EMAIL_SYSTEM_PROMPT, userPrompt);
 
     return NextResponse.json({
       success: true,
-      data: { htmlContent },
+      data: { htmlContent, promptSelection: emailAgentBundle.selection },
     });
   } catch (error) {
     console.error("Email generation error:", error);

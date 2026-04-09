@@ -5,6 +5,7 @@ import { runCopyAgent } from "@/lib/ai/agents/copyAgent";
 import { runSubjectLineAgent } from "@/lib/ai/agents/subjectLineAgent";
 import { runLayoutAgent } from "@/lib/ai/agents/layoutAgent";
 import { runHtmlAssemblyAgent } from "@/lib/ai/agents/htmlAssemblyAgent";
+import { buildEmailAgentContextBundle } from "@/lib/ai/email-agent-loader";
 import {
   getAuthenticatedSession,
   unauthorizedResponse,
@@ -55,22 +56,38 @@ export async function POST(req: Request) {
     const { sectionName, briefData, existingCopy, existingLayout, campaignType } = parsed.data;
     const brandProfile = await prisma.brandProfile.findUnique({ where: { userId } });
     if (!brandProfile) return badRequestResponse("No brand profile found");
+    const emailAgentBundle = await buildEmailAgentContextBundle({
+      campaignType,
+      goal: briefData.primaryGoal,
+      keyMessage: briefData.keyBenefits.join(", "),
+    });
 
     let result: unknown;
 
     switch (sectionName) {
       case "copy": {
-        const copyResult = await runCopyAgent(briefData as BriefAnalystOutput, brandProfile.brandVoice);
+        const copyResult = await runCopyAgent(
+          briefData as BriefAnalystOutput,
+          brandProfile.brandVoice,
+          emailAgentBundle.copyContext
+        );
         result = copyResult;
         break;
       }
       case "subject": {
-        const subjectResult = await runSubjectLineAgent(briefData as BriefAnalystOutput);
+        const subjectResult = await runSubjectLineAgent(
+          briefData as BriefAnalystOutput,
+          emailAgentBundle.subjectContext
+        );
         result = subjectResult;
         break;
       }
       case "layout": {
-        const layoutResult = await runLayoutAgent(briefData as BriefAnalystOutput, campaignType);
+        const layoutResult = await runLayoutAgent(
+          briefData as BriefAnalystOutput,
+          campaignType,
+          emailAgentBundle.layoutContext
+        );
         // If we have existing copy, also re-assemble HTML
         if (existingCopy) {
           const htmlResult = await runHtmlAssemblyAgent(
@@ -87,7 +104,8 @@ export async function POST(req: Request) {
               logoUrl: brandProfile.logoUrl,
               siteUrl: brandProfile.siteUrl,
               ctaStyle: brandProfile.ctaStyle,
-            }
+            },
+            emailAgentBundle.htmlContext
           );
           result = { layout: layoutResult, html: htmlResult };
         } else {

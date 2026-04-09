@@ -10,8 +10,8 @@ import {
 const SYSTEM_PROMPT = `You are an expert email copywriter. Write compelling, conversion-focused email body copy.
 
 RULES:
-1. Return ONLY valid JSON — no markdown, no explanation, no code fences.
-2. Write plain text only — NO HTML, NO CSS, NO formatting tags.
+1. Return ONLY valid JSON - no markdown, no explanation, no code fences.
+2. Write plain text only - NO HTML, NO CSS, NO formatting tags.
 3. headline: bold, attention-grabbing, under 10 words
 4. subheadline: supports the headline, adds context, under 20 words
 5. body: 2-3 short paragraphs, benefit-focused, conversational, under 150 words total
@@ -27,12 +27,13 @@ Output format:
   "ps": "..."
 }`;
 
-/** Run the Copy Agent — writes email body copy in structured JSON */
+/** Run the Copy Agent and write email body copy in structured JSON */
 export async function runCopyAgent(
   brief: BriefAnalystOutput,
-  brandVoice: string
+  brandVoice: string,
+  emailAgentContext?: string
 ): Promise<AgentResult<CopyAgentOutput>> {
-  const userPrompt = `Write email copy for this campaign:
+  const userPrompt = `${emailAgentContext ? `EMAIL_AGENT_CONTEXT:\n${emailAgentContext}\n\n` : ""}Write email copy for this campaign:
 
 Tone: ${brief.tone}
 Goal: ${brief.primaryGoal}

@@ -10,7 +10,7 @@ import {
 const SYSTEM_PROMPT = `You are an email subject line specialist. Generate compelling subject lines that maximize open rates.
 
 RULES:
-1. Return ONLY a valid JSON array — no markdown, no explanation, no code fences.
+1. Return ONLY a valid JSON array - no markdown, no explanation, no code fences.
 2. Each subject line must be under 60 characters.
 3. Each preview text must be under 90 characters.
 4. Avoid spam triggers: free, guaranteed, act now, limited time, click here.
@@ -23,11 +23,12 @@ Output format:
   ...
 ]`;
 
-/** Run the Subject Line agent — generates 5 subject/preview pairs */
+/** Run the Subject Line agent and generate 5 subject/preview pairs */
 export async function runSubjectLineAgent(
-  brief: BriefAnalystOutput
+  brief: BriefAnalystOutput,
+  emailAgentContext?: string
 ): Promise<AgentResult<SubjectLineAgentOutput>> {
-  const userPrompt = `Generate 5 subject lines with preview text for this campaign:
+  const userPrompt = `${emailAgentContext ? `EMAIL_AGENT_CONTEXT:\n${emailAgentContext}\n\n` : ""}Generate 5 subject lines with preview text for this campaign:
 
 Tone: ${brief.tone}
 Goal: ${brief.primaryGoal}

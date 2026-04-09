@@ -53,6 +53,8 @@ export interface GenerateEmailRequest {
   ctaText: string;
   tone?: string;
   additionalNotes?: string;
+  emailType?: string;
+  campaignType?: string;
 }
 
 /** Email refinement request */
@@ -76,6 +78,8 @@ export interface CampaignBrief {
   ctaText: string;
   tone?: string;
   additionalNotes?: string;
+  emailType?: string;
+  campaignType?: string;
 }
 
 /** Send settings for a campaign */
