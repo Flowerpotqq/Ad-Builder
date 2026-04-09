@@ -216,7 +216,7 @@ export default function SendCampaignPage() {
               {subjectSuggestions.map((s, i) => (
                 <button
                   key={i}
-                  className="w-full rounded-md border p-2 text-left text-sm hover:bg-gray-50"
+                  className="w-full rounded-md border p-2 text-left text-sm hover:bg-secondary/60"
                   onClick={() => setSubject(s.subject)}
                 >
                   <p className="font-medium">{s.subject}</p>

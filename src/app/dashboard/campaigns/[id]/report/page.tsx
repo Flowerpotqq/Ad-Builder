@@ -137,11 +137,11 @@ export default function CampaignReportPage() {
                       <td className="py-2">{(event.contact as Record<string, string>)?.email || "—"}</td>
                       <td className="py-2">
                         <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
-                          event.type === "OPENED" ? "bg-blue-100 text-blue-700" :
-                          event.type === "CLICKED" ? "bg-green-100 text-green-700" :
-                          event.type === "BOUNCED" ? "bg-red-100 text-red-700" :
-                          event.type === "SENT" ? "bg-gray-100 text-gray-700" :
-                          "bg-yellow-100 text-yellow-700"
+                          event.type === "OPENED" ? "bg-[#eaf4ff] text-[#2b4f7d]" :
+                          event.type === "CLICKED" ? "bg-[#e8f7f1] text-[#1f6550]" :
+                          event.type === "BOUNCED" ? "bg-[#fff0f2] text-[#9f2f43]" :
+                          event.type === "SENT" ? "bg-muted text-foreground/80" :
+                          "bg-[#fff5dc] text-[#785c1d]"
                         }`}>
                           {event.type as string}
                         </span>

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
+import { Prisma } from "@prisma/client";
 import { prisma } from "@/lib/db/prisma";
 import {
   getAuthenticatedSession,
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
       data: {
         userId,
         ...parsed.data,
-        agentOutputs: parsed.data.agentOutputs,
+        agentOutputs: parsed.data.agentOutputs as Prisma.InputJsonValue,
       },
     });
 

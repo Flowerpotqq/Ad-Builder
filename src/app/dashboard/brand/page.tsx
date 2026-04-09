@@ -24,12 +24,12 @@ export default function BrandSettingsPage() {
   const [isSaving, setIsSaving] = useState(false);
 
   // Form state
-  const [primaryColor, setPrimaryColor] = useState("#0e0e2c");
-  const [secondaryColor, setSecondaryColor] = useState("#1a1a4e");
-  const [accentColor, setAccentColor] = useState("#b8dff0");
+  const [primaryColor, setPrimaryColor] = useState("#0a0f1e");
+  const [secondaryColor, setSecondaryColor] = useState("#1a2240");
+  const [accentColor, setAccentColor] = useState("#99e4ff");
   const [backgroundColor, setBackgroundColor] = useState("#ffffff");
-  const [textColor, setTextColor] = useState("#333333");
-  const [fontFamily, setFontFamily] = useState("Arial, Helvetica, sans-serif");
+  const [textColor, setTextColor] = useState("#1a2240");
+  const [fontFamily, setFontFamily] = useState("DM Sans, sans-serif");
   const [fontSizeBase, setFontSizeBase] = useState(16);
   const [logoUrl, setLogoUrl] = useState("");
   const [siteUrl, setSiteUrl] = useState("https://getnapsolutions.com");
@@ -186,11 +186,11 @@ export default function BrandSettingsPage() {
                 <Select value={fontFamily} onValueChange={setFontFamily}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Arial, Helvetica, sans-serif">Arial</SelectItem>
-                    <SelectItem value="Georgia, Times New Roman, serif">Georgia</SelectItem>
-                    <SelectItem value="Verdana, Geneva, sans-serif">Verdana</SelectItem>
-                    <SelectItem value="Trebuchet MS, sans-serif">Trebuchet MS</SelectItem>
-                    <SelectItem value="Courier New, monospace">Courier New</SelectItem>
+                    <SelectItem value="DM Sans, sans-serif">DM Sans</SelectItem>
+                    <SelectItem value="Space Grotesk, sans-serif">Space Grotesk</SelectItem>
+                    <SelectItem value="Manrope, sans-serif">Manrope</SelectItem>
+                    <SelectItem value="Sora, sans-serif">Sora</SelectItem>
+                    <SelectItem value="IBM Plex Sans, sans-serif">IBM Plex Sans</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -262,7 +262,7 @@ export default function BrandSettingsPage() {
             </CardHeader>
             <CardContent>
               <div
-                className="flex justify-center rounded-lg bg-gray-50 p-6"
+                className="flex justify-center rounded-lg bg-secondary/45 p-6"
                 dangerouslySetInnerHTML={{ __html: renderPreview() }}
               />
             </CardContent>
@@ -272,3 +272,4 @@ export default function BrandSettingsPage() {
     </div>
   );
 }
+

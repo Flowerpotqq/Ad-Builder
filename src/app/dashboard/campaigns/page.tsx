@@ -221,7 +221,7 @@ export default function CampaignsPage() {
         </div>
       ) : (
         <div className="py-16 text-center">
-          <Mail className="mx-auto mb-4 h-12 w-12 text-gray-300" />
+          <Mail className="mx-auto mb-4 h-12 w-12 text-muted-foreground/50" />
           <h3 className="mb-2 text-lg font-medium">No campaigns yet</h3>
           <p className="mb-4 text-muted-foreground">Create your first AI-powered email campaign</p>
           <Button onClick={() => setShowNewModal(true)}>
@@ -286,3 +286,4 @@ export default function CampaignsPage() {
     </div>
   );
 }
+

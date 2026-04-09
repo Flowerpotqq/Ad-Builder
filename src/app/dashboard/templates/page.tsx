@@ -1,13 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { FileText, Plus } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { FileText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 
-/** Templates page — browse and manage email templates */
+/** Templates page - browse and manage email templates */
 export default function TemplatesPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [templates, setTemplates] = useState<Array<Record<string, unknown>>>([]);
@@ -54,7 +53,7 @@ export default function TemplatesPage() {
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base">{template.name as string}</CardTitle>
-                  {template.isDefault && <Badge variant="secondary">Default</Badge>}
+                  {(template.isDefault as boolean) && <Badge variant="secondary">Default</Badge>}
                 </div>
               </CardHeader>
               <CardContent>
@@ -68,7 +67,7 @@ export default function TemplatesPage() {
         </div>
       ) : (
         <div className="py-16 text-center">
-          <FileText className="mx-auto mb-4 h-12 w-12 text-gray-300" />
+          <FileText className="mx-auto mb-4 h-12 w-12 text-muted-foreground/50" />
           <h3 className="mb-2 text-lg font-medium">No templates yet</h3>
           <p className="text-muted-foreground">
             Templates are created automatically when you save an email design. Generate your first email in a campaign to get started.
@@ -78,3 +77,4 @@ export default function TemplatesPage() {
     </div>
   );
 }
+

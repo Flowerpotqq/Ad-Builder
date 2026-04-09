@@ -143,7 +143,7 @@ export default function DashboardPage() {
                 <Link
                   key={campaign.id}
                   href={`/dashboard/campaigns/${campaign.id}/edit`}
-                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-gray-50"
+                  className="flex items-center justify-between rounded-lg border p-3 transition-colors hover:bg-secondary/60"
                 >
                   <div>
                     <p className="font-medium">{campaign.name}</p>
@@ -166,7 +166,7 @@ export default function DashboardPage() {
             </div>
           ) : (
             <div className="py-8 text-center text-muted-foreground">
-              <Mail className="mx-auto mb-3 h-8 w-8 text-gray-300" />
+              <Mail className="mx-auto mb-3 h-8 w-8 text-muted-foreground/50" />
               <p>No campaigns yet. Create your first one!</p>
             </div>
           )}
@@ -175,3 +175,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

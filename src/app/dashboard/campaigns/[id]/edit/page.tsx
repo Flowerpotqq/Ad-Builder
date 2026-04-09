@@ -241,7 +241,7 @@ export default function CampaignEditorPage() {
   return (
     <div className="flex h-[calc(100vh-5rem)] gap-4">
       {/* LEFT PANEL — AI Controls */}
-      <div className="w-[400px] shrink-0 overflow-y-auto rounded-lg border bg-white p-4">
+      <div className="scrollbar-subtle w-[400px] shrink-0 overflow-y-auto rounded-lg border bg-card p-4 shadow-[0_8px_20px_rgba(13,30,68,0.08)]">
         {/* Campaign Brief */}
         <Card className="mb-4">
           <CardHeader className="pb-3">
@@ -420,7 +420,7 @@ export default function CampaignEditorPage() {
       </div>
 
       {/* RIGHT PANEL — Preview */}
-      <div className="flex flex-1 flex-col rounded-lg border bg-white">
+      <div className="flex flex-1 flex-col rounded-lg border bg-card shadow-[0_8px_20px_rgba(13,30,68,0.08)]">
         {/* Toolbar */}
         <div className="flex items-center justify-between border-b px-4 py-2">
           <div className="flex items-center gap-2">
@@ -456,11 +456,11 @@ export default function CampaignEditorPage() {
         </div>
 
         {/* Preview iframe */}
-        <div className="flex flex-1 items-start justify-center overflow-auto bg-gray-100 p-4">
+        <div className="flex flex-1 items-start justify-center overflow-auto bg-muted p-4">
           {htmlContent ? (
             <iframe
               ref={iframeRef}
-              className="rounded border bg-white shadow-sm"
+              className="rounded-md border border-border bg-card shadow-[0_4px_14px_rgba(13,30,68,0.1)]"
               style={{
                 width: previewMode === "desktop" ? "600px" : "375px",
                 minHeight: "600px",
@@ -472,7 +472,7 @@ export default function CampaignEditorPage() {
             />
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center text-center text-muted-foreground">
-              <Sparkles className="mb-4 h-12 w-12 text-gray-300" />
+              <Sparkles className="mb-4 h-12 w-12 text-muted-foreground/50" />
               <h3 className="mb-2 text-lg font-medium">No email yet</h3>
               <p className="max-w-sm text-sm">
                 Fill in the campaign brief on the left and click &quot;Generate Email&quot; to create your AI-powered email.

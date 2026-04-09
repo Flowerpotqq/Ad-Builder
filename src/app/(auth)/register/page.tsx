@@ -46,11 +46,11 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-nap-navy to-nap-navy-light">
-      <Card className="w-full max-w-md">
+    <div className="nap-shell flex min-h-screen items-center justify-center px-6 py-12">
+      <Card className="nap-panel w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-nap-navy">
-            <Sparkles className="h-6 w-6 text-white" />
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-gradient-to-br from-nap-blue to-nap-cyan">
+            <Sparkles className="h-5 w-5 text-nap-navy" />
           </div>
           <CardTitle className="text-2xl">Create your account</CardTitle>
           <CardDescription>Get started with NAP Email Platform</CardDescription>
@@ -58,7 +58,7 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             {error && (
-              <div className="rounded-md bg-red-50 p-3 text-sm text-red-600">{error}</div>
+              <div className="rounded-md border border-[#f8c9cf] bg-[#fff0f2] p-3 text-sm text-[#9f2f43]">{error}</div>
             )}
             <div className="space-y-2">
               <Label htmlFor="name">Full name</Label>
@@ -105,7 +105,7 @@ export default function RegisterPage() {
             </Button>
             <p className="text-sm text-muted-foreground">
               Already have an account?{" "}
-              <Link href="/login" className="text-nap-navy font-medium hover:underline">
+              <Link href="/login" className="font-semibold text-brand-ink hover:text-foreground hover:underline">
                 Sign in
               </Link>
             </p>

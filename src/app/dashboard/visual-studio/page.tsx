@@ -216,7 +216,7 @@ export default function VisualStudioPage() {
       </div>
 
       <div className="flex gap-6">
-        {/* LEFT PANEL — Controls */}
+        {/* LEFT PANEL - Controls */}
         <div className="w-[380px] shrink-0 space-y-4">
           <Card>
             <CardHeader className="pb-3">
@@ -293,7 +293,7 @@ export default function VisualStudioPage() {
                     ) : (
                       <XCircle className="h-4 w-4 text-red-500" />
                     )}
-                    <span className={item.pass ? "text-gray-700" : "text-red-600"}>{item.label}</span>
+                    <span className={item.pass ? "text-foreground/80" : "text-red-600"}>{item.label}</span>
                   </div>
                 ))}
               </CardContent>
@@ -301,7 +301,7 @@ export default function VisualStudioPage() {
           )}
         </div>
 
-        {/* RIGHT PANEL — Preview */}
+        {/* RIGHT PANEL - Preview */}
         <div className="flex-1">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between pb-3">
@@ -322,7 +322,7 @@ export default function VisualStudioPage() {
               )}
             </CardHeader>
             <CardContent>
-              <div className="flex justify-center rounded-lg bg-gray-100 p-8">
+              <div className="flex justify-center rounded-lg bg-muted p-8">
                 {generated ? (
                   <div
                     style={{
@@ -348,7 +348,7 @@ export default function VisualStudioPage() {
                   </div>
                 ) : (
                   <div className="flex h-[400px] flex-col items-center justify-center text-muted-foreground">
-                    <Sparkles className="mb-4 h-12 w-12 text-gray-300" />
+                    <Sparkles className="mb-4 h-12 w-12 text-muted-foreground/50" />
                     <p>Describe your ad and click Generate</p>
                   </div>
                 )}
@@ -375,7 +375,7 @@ export default function VisualStudioPage() {
                     </div>
                   </div>
                   {caption ? (
-                    <p className="mt-2 text-sm text-gray-700 whitespace-pre-wrap">{caption}</p>
+                    <p className="mt-2 text-sm text-foreground/80 whitespace-pre-wrap">{caption}</p>
                   ) : (
                     <p className="mt-2 text-sm text-muted-foreground">
                       Click Generate to get AI-written captions for your ad.
@@ -390,3 +390,4 @@ export default function VisualStudioPage() {
     </div>
   );
 }
+

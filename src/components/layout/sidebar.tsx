@@ -28,11 +28,13 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-white">
+    <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r border-border bg-white">
       {/* Logo / Brand */}
-      <div className="flex h-16 items-center gap-2 border-b px-6">
-        <Sparkles className="h-6 w-6 text-nap-navy" />
-        <span className="text-lg font-bold text-nap-navy">NAP Email</span>
+      <div className="flex h-16 items-center gap-3 border-b border-border px-6">
+        <div className="flex h-8 w-8 items-center justify-center rounded-md bg-gradient-to-br from-nap-blue to-nap-cyan">
+          <Sparkles className="h-4 w-4 text-nap-navy" />
+        </div>
+        <span className="text-base font-semibold tracking-tight text-brand-ink">NAP Email</span>
       </div>
 
       {/* Navigation */}
@@ -47,10 +49,10 @@ export function Sidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
+                "flex items-center gap-3 rounded-md border border-transparent px-3 py-2.5 text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-nap-blue/20 text-nap-navy"
-                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                  ? "border-brand bg-brand-soft text-brand-ink"
+                  : "text-muted-foreground hover:bg-secondary hover:text-foreground"
               )}
             >
               <item.icon className="h-5 w-5" />
@@ -61,7 +63,7 @@ export function Sidebar() {
       </nav>
 
       {/* Bottom branding */}
-      <div className="absolute bottom-0 left-0 w-full border-t p-4">
+      <div className="absolute bottom-0 left-0 w-full border-t border-border p-4">
         <p className="text-xs text-muted-foreground">
           Powered by NAP Solutions
         </p>

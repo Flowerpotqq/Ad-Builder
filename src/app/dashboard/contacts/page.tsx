@@ -207,7 +207,7 @@ export default function ContactsPage() {
               <div
                 key={list.id}
                 className={`flex cursor-pointer items-center justify-between rounded-lg border p-3 transition-colors ${
-                  selectedList === list.id ? "border-primary bg-primary/5" : "hover:bg-gray-50"
+                  selectedList === list.id ? "border-primary bg-primary/5" : "hover:bg-secondary/60"
                 }`}
                 onClick={() => setSelectedList(list.id)}
               >
@@ -264,10 +264,10 @@ export default function ContactsPage() {
                         {contacts.map((contact) => (
                           <tr key={contact.id} className="border-b last:border-0">
                             <td className="py-2">{contact.email}</td>
-                            <td className="py-2">{contact.firstName || "—"}</td>
-                            <td className="py-2">{contact.lastName || "—"}</td>
+                            <td className="py-2">{contact.firstName || "-"}</td>
+                            <td className="py-2">{contact.lastName || "-"}</td>
                             <td className="py-2">
-                              {contact.tags.length > 0 ? contact.tags.join(", ") : "—"}
+                              {contact.tags.length > 0 ? contact.tags.join(", ") : "-"}
                             </td>
                           </tr>
                         ))}
@@ -276,7 +276,7 @@ export default function ContactsPage() {
                   </div>
                 ) : (
                   <div className="py-8 text-center text-muted-foreground">
-                    <Users className="mx-auto mb-3 h-8 w-8 text-gray-300" />
+                    <Users className="mx-auto mb-3 h-8 w-8 text-muted-foreground/50" />
                     <p>No contacts in this list. Import a CSV to get started.</p>
                   </div>
                 )}
@@ -317,3 +317,4 @@ export default function ContactsPage() {
     </div>
   );
 }
+

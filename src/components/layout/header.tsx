@@ -14,17 +14,17 @@ import {
 /** Top header bar with user avatar and account menu */
 export function Header() {
   return (
-    <header className="fixed left-64 right-0 top-0 z-30 flex h-16 items-center justify-between border-b bg-white px-6">
+    <header className="fixed left-64 right-0 top-0 z-30 flex h-16 items-center justify-between border-b border-border bg-white/95 px-6">
       <div>
-        <h2 className="text-sm font-medium text-muted-foreground">
+        <h2 className="text-sm font-medium text-brand-ink">
           AI-Powered Email Design Platform
         </h2>
       </div>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-nap-navy text-white">
+          <Button variant="ghost" className="flex items-center gap-2 rounded-md border border-transparent hover:border-border">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-nap-navy-light text-white">
               <User className="h-4 w-4" />
             </div>
             <span className="text-sm font-medium">Local Admin</span>

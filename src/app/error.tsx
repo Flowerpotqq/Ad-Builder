@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { AlertTriangle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/** Global error boundary — catches unhandled errors at the app level */
+/** Global error boundary - catches unhandled errors at the app level */
 export default function GlobalError({
   error,
   reset,
@@ -29,3 +29,4 @@ export default function GlobalError({
     </div>
   );
 }
+
